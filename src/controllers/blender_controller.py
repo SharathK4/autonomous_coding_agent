@@ -5,12 +5,13 @@ import os
 import time
 
 # --- This logic MUST be at the top ---
-# ✅ CORRECTED PATH: We now point one level deeper, into the submodule's directory.
-vendor_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'vendor', 'blender-mcp'))
+# It adds the correct 'src' directory from the submodule to Python's path
+# ✅ FINAL CORRECTION: Added '/src' to the end of the path.
+vendor_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'vendor', 'blender-mcp', 'src'))
 if vendor_path not in sys.path:
     sys.path.append(vendor_path)
 
-# This try/except block is now our main guard against installation issues
+# This try/except block is our main guard against installation issues
 try:
     from blender_mcp.client import BlenderClient
 except ImportError as e:

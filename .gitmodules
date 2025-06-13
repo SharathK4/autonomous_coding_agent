@@ -1,3 +1,0 @@
-[submodule "src/vendor/blender-mcp"]
-	path = src/vendor/blender-mcp
-	url = https://github.com/ahujasid/blender-mcp.git
