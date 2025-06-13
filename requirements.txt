@@ -2,3 +2,5 @@ langchain
 langgraph
 langchain-google-genai 
 python-dotenv
+pyautogui  # <-- NEW: For mouse/keyboard control
+Pillow     # <-- NEW: For taking screenshots
