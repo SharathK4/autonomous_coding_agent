@@ -1,14 +1,14 @@
+# main.py
+
 import sys
-import os
 from pprint import pprint
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-# Import the master app from the main_workflow file
+# --- No more complex path setup needed! ---
+# We can now import the app directly.
 from main_workflow import app
 
 def main():
-    print("🤖 Versatile AI Agent is ready.")
+    print("\n🤖 Versatile AI Agent is ready.")
     print("Enter your request for coding or Blender, or type 'exit' to close.")
 
     while True:
@@ -21,7 +21,6 @@ def main():
 
         print("\n--- Agent is routing and executing... ---")
         
-        # The input state is now very simple
         inputs = {"prompt": prompt}
 
         for output in app.stream(inputs):

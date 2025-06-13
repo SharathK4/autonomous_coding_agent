@@ -12,24 +12,35 @@ def get_executor_agent():
     llm = get_llm()
     prompt = ChatPromptTemplate.from_template(
         """
-        You are an expert Blender Python API (`bpy`) programmer.
-        Your task is to convert a single, high-level user request into a small, executable
-        snippet of Python code that can be sent to a live Blender instance.
+        You are an expert-level Blender Python API (`bpy`) programmer. Your sole purpose is to convert a user's request into a single, executable snippet of Python code and call a tool with it.
 
         **User Request:**
         {prompt}
 
-        **Instructions:**
-        - Generate only the Python code required to perform this action.
-        - Do not include any explanations, only the code.
-        - The code must be self-contained and ready to execute. For example, always `import bpy`.
-        - Use the `send_blender_command` tool to send your generated code to Blender.
+        **Your Task:**
+        1.  Analyze the user's request.
+        2.  Write a self-contained Python code snippet that performs the requested action using the `bpy` API.
+        3.  You MUST call the `send_blender_command` tool with your generated code.
+        4.  DO NOT write explanations, comments, or any conversational text. Your only output must be the tool call.
 
-        Example:
-        User Request: "create a cube"
-        Your code output:
+        **Example:**
+        User Request: "create a red cube"
+        Your Action: Call the `send_blender_command` tool with the following `python_code`:
+        ```python
         import bpy
-        bpy.ops.mesh.primitive_cube_add(size=2, location=(0, 0, 0))
+        # Create cube
+        bpy.ops.mesh.primitive_cube_add(size=2, location=(0, 0, 1))
+        cube = bpy.context.active_object
+        # Create material
+        mat = bpy.data.materials.new(name="RedMaterial")
+        mat.diffuse_color = (1, 0, 0, 1) # RGBA for red
+        # Assign material to cube
+        if cube.data.materials:
+            cube.data.materials[0] = mat
+        else:
+            cube.data.materials.append(mat)
+        ```
         """
     )
+    # By only binding this one tool, we heavily encourage the agent to use it.
     return prompt | llm.bind_tools([send_blender_command])
