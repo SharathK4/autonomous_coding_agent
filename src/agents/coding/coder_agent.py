@@ -1,8 +1,7 @@
-# src/agents/coding/coder_agent.py
+
 
 from langchain_core.prompts import ChatPromptTemplate
 from src.utils.llm_setup import get_llm
-# ✅ THIS IS THE CORRECTED IMPORT LINE
 from src.tools.file_system_tools import write_files, read_file 
 
 def get_coder_agent():
@@ -27,5 +26,5 @@ def get_coder_agent():
         4.  If you need to read a file for context, use the `read_file` tool first.
         """
     )
-    # The coder can now read and write files
+    
     return prompt | llm.bind_tools([write_files, read_file])

@@ -8,8 +8,6 @@ def get_planner_agent():
     """
     llm = get_llm()
 
-    # ✅ This is the new, memory-aware way to build a prompt
-    # It allows us to insert a list of previous messages
     prompt = ChatPromptTemplate.from_messages(
         [
             (
@@ -20,7 +18,7 @@ def get_planner_agent():
                 
                 The plan should be clear, concise, and sufficient for a coding agent to execute. Do not generate code, only the plan.""",
             ),
-            # This placeholder will be replaced by the `chat_history` list
+            
             MessagesPlaceholder(variable_name="chat_history"),
             (
                 "human",

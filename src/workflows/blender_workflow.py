@@ -1,5 +1,3 @@
-# src/workflows/blender_workflow.py
-
 from langgraph.graph import StateGraph, END
 from typing import TypedDict
 from src.agents.blender.executor_agent import get_executor_agent

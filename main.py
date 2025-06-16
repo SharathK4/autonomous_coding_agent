@@ -1,14 +1,9 @@
-# main.py
-
-import sys
 from pprint import pprint
 
-# --- No more complex path setup needed! ---
-# We can now import the app directly.
 from main_workflow import app
 
 def main():
-    print("\n🤖 Versatile AI Agent is ready.")
+    print("\n AI Agent is ready.")
     print("Enter your request for coding or Blender, or type 'exit' to close.")
 
     while True:

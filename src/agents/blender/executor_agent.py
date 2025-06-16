@@ -1,5 +1,3 @@
-# src/agents/blender/executor_agent.py
-
 from langchain_core.prompts import ChatPromptTemplate
 from src.utils.llm_setup import get_llm
 from src.tools.blender_tools import send_blender_command
@@ -23,22 +21,6 @@ def get_executor_agent():
         3.  You MUST call the `send_blender_command` tool with your generated code.
         4.  DO NOT write explanations, comments, or any conversational text. Your only output must be the tool call.
 
-        **Example:**
-        User Request: "create a red cube"
-        Your Action: Call the `send_blender_command` tool with the following `python_code`:
-        ```python
-        import bpy
-        # Create cube
-        bpy.ops.mesh.primitive_cube_add(size=2, location=(0, 0, 1))
-        cube = bpy.context.active_object
-        # Create material
-        mat = bpy.data.materials.new(name="RedMaterial")
-        mat.diffuse_color = (1, 0, 0, 1) # RGBA for red
-        # Assign material to cube
-        if cube.data.materials:
-            cube.data.materials[0] = mat
-        else:
-            cube.data.materials.append(mat)
         ```
         """
     )

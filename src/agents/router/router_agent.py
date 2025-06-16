@@ -1,5 +1,3 @@
-# src/agents/router/router_agent.py
-
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic  import BaseModel, Field
 from src.utils.llm_setup import get_llm

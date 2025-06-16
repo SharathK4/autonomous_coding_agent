@@ -1,5 +1,3 @@
-# src/tools/blender_tools.py
-
 from langchain.tools import tool
 from src.controllers.blender_controller import blender_controller
 
@@ -28,4 +26,3 @@ def disconnect_from_blender() -> str:
     blender_controller.disconnect()
     return "Disconnected from Blender."
 
-# We keep the filesystem tools in their own file and import them where needed.
