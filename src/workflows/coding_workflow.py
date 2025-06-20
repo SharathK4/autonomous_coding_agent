@@ -1,5 +1,5 @@
 from langgraph.graph import StateGraph, END
-from typing import TypedDict, Dict
+from typing import TypedDict, Dict, List
 from pprint import pformat
 from src.agents.coding.planner_agent import get_planner_agent
 from src.agents.coding.coder_agent import get_coder_agent
@@ -16,13 +16,20 @@ class CodingState(TypedDict):
     plan: str
     workspace: Dict[str, str]
     review: str  
+    chat_history: List
 
 
 def planner_node(state: CodingState) -> dict:
-    """Generates the initial plan."""
+    """Generates the initial plan, now aware of chat history."""
     print("---PLANNER---")
     planner = get_planner_agent()
-    plan = planner.invoke({"prompt": state["prompt"]}).content
+    
+    
+    plan = planner.invoke({
+        "prompt": state["prompt"],
+        "chat_history": state["chat_history"] 
+    }).content
+    
     return {"plan": plan}
 
 def coder_node(state: CodingState) -> dict:
@@ -86,7 +93,7 @@ def should_continue(state: CodingState) -> str:
         print("---DECISION: REVIEW FAILED, LOOPING TO DEBUGGER---")
         return "debugger"
 
-# 3. Define the factory function that creates and compiles the graph
+
 def get_coding_workflow():
     """
     Builds and compiles the stateful graph for the coding agent.

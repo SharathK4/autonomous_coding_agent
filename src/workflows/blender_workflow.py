@@ -19,11 +19,11 @@ def executor_node(state):
     agent = get_executor_agent()
     result = agent.invoke({"prompt": state["prompt"]})
     
-    # Ensure the agent called the tool
+    
     if not result.tool_calls:
         raise ValueError("Blender Executor agent failed to generate a command.")
         
-    # Execute the generated command
+    
     command_result = send_blender_command.invoke(result.tool_calls[0]['args'])
     return {"result": command_result}
 

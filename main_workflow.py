@@ -1,5 +1,6 @@
 from langgraph.graph import StateGraph, END
-from typing import TypedDict, Dict, Optional
+from typing import TypedDict, Dict, Optional, Annotated
+from langgraph.graph.message import add_messages
 from src.agents.router.router_agent import get_router_agent
 from src.workflows.coding_workflow import get_coding_workflow
 from src.workflows.blender_workflow import get_blender_workflow
@@ -9,6 +10,8 @@ class SuperState(TypedDict):
     """The global state for the entire application."""
     prompt: str
     destination: Optional[str]
+
+    chat_history: Annotated[list, add_messages]
     
     # Coding-specific state
     plan: Optional[str]
